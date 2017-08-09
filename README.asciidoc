@@ -228,6 +228,7 @@ Note, however, that one should then perform a fetch from each relevant remote
 to fully complete the conversion (prior to subsequent pushing).
 --------------------------------------
 % git config --global remote-hg.remove-username-quotes false
+--------------------------------------
 
 By default, for backwards compatibility with earlier versions,
 git-remote-hg removes quotation marks from git usernames
