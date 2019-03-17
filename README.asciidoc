@@ -13,6 +13,13 @@ wget https://raw.github.com/mnauw/git-remote-hg/master/git-remote-hg -O ~/bin/gi
 chmod +x ~/bin/git-remote-hg
 --------------------------------------
 
+In Windows, you also need to put and an NTFS symbolic link named `python2.exe` somewhere
+on your `$PATH` pointing to your Python 2 executable:
+
+--------------------------------------
+mklink <path to link> <path to python.exe>
+--------------------------------------
+
 That's it :)
 
 Obviously you will need Mercurial installed.
