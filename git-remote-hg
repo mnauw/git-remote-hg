@@ -493,15 +493,20 @@ def get_repo(url, alias):
         except:
             die('Repository error')
 
+        branchmap = peer.branchmap()
+        heads = []
+        for branch, branch_heads in branchmap.iteritems():
+            heads.extend(branch_heads)
+
         if check_version(3, 0):
             from mercurial import exchange
-            exchange.pull(repo, peer, heads=None, force=True)
+            exchange.pull(repo, peer, heads=heads, force=True)
         else:
-            repo.pull(peer, heads=None, force=True)
+            repo.pull(peer, heads=heads, force=True)
 
         updatebookmarks(repo, peer)
 
-    return repo
+    return repo, branchmap
 
 def rev_to_mark(rev):
     return marks.from_rev(rev.hex())
@@ -704,15 +709,14 @@ def list_head(repo, cur):
     print "@refs/heads/%s HEAD" % head
     g_head = (head, node)
 
-def do_list(parser):
+def do_list(parser, branchmap):
     repo = parser.repo
     for bmark, node in bookmarks.listbookmarks(repo).iteritems():
         bmarks[bmark] = repo[node]
 
     cur = repo.dirstate.branch()
-    orig = peer if peer else repo
 
-    for branch, heads in orig.branchmap().iteritems():
+    for branch, heads in branchmap.iteritems():
         # only open heads
         heads = [h for h in heads if 'close' not in repo.changelog.read(h)[5]]
         if heads:
@@ -1761,7 +1765,7 @@ def main(args):
 
     prefix = select_private_refs(alias)
     marksdir = select_marks_dir(alias, gitdir, True)
-    repo = get_repo(url, alias)
+    repo, branchmap = get_repo(url, alias)
 
     if not is_tmp:
         fix_path(alias, peer or repo, url)
@@ -1778,7 +1782,7 @@ def main(args):
         if parser.check('capabilities'):
             do_capabilities(parser)
         elif parser.check('list'):
-            do_list(parser)
+            do_list(parser, branchmap)
         elif parser.check('import'):
             do_import(parser)
         elif parser.check('export'):
