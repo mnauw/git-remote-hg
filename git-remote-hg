@@ -456,6 +456,7 @@ def get_repo(url, alias):
         repo = hg.repository(myui, url)
         if not os.path.exists(dirname):
             os.makedirs(dirname)
+        branchmap = repo.branchmap()
     else:
         shared_path = os.path.join(gitdir, 'hg')
 
