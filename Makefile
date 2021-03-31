@@ -21,6 +21,7 @@ D = $(DESTDIR)
 install:
 	install -d -m 755 $(D)$(bindir)/
 	install -m 755 git-remote-hg $(D)$(bindir)/git-remote-hg
+	install -m 755 git-hg-helper $(D)$(bindir)/git-hg-helper
 
 install-doc: doc
 	install -d -m 755 $(D)$(mandir)/
