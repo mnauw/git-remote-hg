@@ -270,10 +270,10 @@ test_expect_success 'push with renamed executable preserves executable bit' '
 	) &&
 
 	(
+	umask 0 &&
 	cd hgrepo &&
 	hg update &&
 	stat content2 >expected &&
-	# umask mileage might vary
 	grep -- -r.xr.xr.x expected
 	)
 '
