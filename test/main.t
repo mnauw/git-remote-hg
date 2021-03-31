@@ -1093,7 +1093,7 @@ test_expect_success 'push bookmark without changesets' '
 	check_bookmark hgrepo feature-a two
 '
 
-test_expect_unstable 'pull tags' '
+test_expect_success 'pull tags' '
 	test_when_finished "rm -rf hgrepo gitrepo" &&
 
 	(
