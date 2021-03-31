@@ -22,13 +22,7 @@ fi
 
 if ! test_have_prereq PYTHON
 then
-	skip_all='skipping remote-hg tests; python not available'
-	test_done
-fi
-
-if ! python -c 'import mercurial' > /dev/null 2>&1
-then
-	skip_all='skipping remote-hg tests; mercurial not available'
+	skip_all='skipping remote-hg tests; python with mercurial not available'
 	test_done
 fi
 

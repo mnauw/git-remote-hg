@@ -13,20 +13,14 @@ test -n "$TEST_DIRECTORY" || TEST_DIRECTORY=$(dirname $0)/
 
 if ! test_have_prereq PYTHON
 then
-	skip_all='skipping remote-hg tests; python not available'
+	skip_all='skipping remote-hg tests; python with mercurial not available'
 	test_done
 fi
 
-if ! python -c 'import mercurial' > /dev/null 2>&1
-then
-	skip_all='skipping remote-hg tests; mercurial not available'
-	test_done
-fi
-
-if python -c 'import hggit' > /dev/null 2>&1
+if "$PYTHON" -c 'import hggit' > /dev/null 2>&1
 then
 	hggit=hggit
-elif python -c 'import hgext.git' > /dev/null 2>&1
+elif "$PYTHON" -c 'import hgext.git' > /dev/null 2>&1
 then
 	hggit=hgext.git
 else

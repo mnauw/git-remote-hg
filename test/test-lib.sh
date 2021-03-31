@@ -20,7 +20,16 @@ fi
 
 . "$SHARNESS"
 
-test_set_prereq PYTHON
+if [ -n "$PYTHON" ] && "$PYTHON" -c 'import mercurial' 2> /dev/null ; then
+	: Use chosen Python version
+elif python3 -c 'import mercurial' 2> /dev/null ; then
+	PYTHON=python3
+elif python2 -c 'import mercurial' 2> /dev/null ; then
+	PYTHON=python2
+elif python -c 'import mercurial' 2> /dev/null ; then
+	PYTHON=python
+fi
+test -n "$PYTHON" && test_set_prereq PYTHON
 
 GIT_AUTHOR_EMAIL=author@example.com
 GIT_AUTHOR_NAME='A U Thor'
