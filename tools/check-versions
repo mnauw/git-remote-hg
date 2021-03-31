@@ -26,6 +26,11 @@ $workdir = "#{Dir.home}/.cache/git-remote-hg"
 $builddir = "/tmp/git-remote-hg-build"
 $testoutdir = "/tmp/git-remote-hg-tests"
 
+at_exit {
+  FileUtils.remove_entry($builddir)
+  FileUtils.remove_entry($testoutdir)
+}
+
 QUIET, LOW, HIGH = (1..3).to_a
 $verbosity = LOW
 
