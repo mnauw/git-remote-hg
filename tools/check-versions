@@ -20,11 +20,12 @@
 #
 
 require 'fileutils'
+require 'tmpdir'
 
 $tests = %w[main.t bidi.t hg-git.t]
 $workdir = "#{Dir.home}/.cache/git-remote-hg"
-$builddir = "/tmp/git-remote-hg-build"
-$testoutdir = "/tmp/git-remote-hg-tests"
+$builddir = Dir.mktmpdir("git-remote-hg-build-")
+$testoutdir = Dir.mktmpdir("git-remote-hg-tests-")
 
 at_exit {
   FileUtils.remove_entry($builddir)
