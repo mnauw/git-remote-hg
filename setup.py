@@ -1,9 +1,6 @@
 # git-remote-hg setuptools script
 
 import setuptools
-import subprocess
-import sys
-import os
 
 # strip leading v
 version = 'v1.0.2.1'[1:]
