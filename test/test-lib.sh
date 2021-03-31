@@ -1,6 +1,24 @@
 #!/bin/sh
 
-. ./sharness.sh
+if [ -z "$SHARNESS" ] ; then
+	for d in \
+		"." \
+		"$HOME/share/sharness" \
+		"/usr/local/share/sharness" \
+		"/usr/share/sharness"
+	do
+		f="$d/sharness.sh"
+		if [ -f "$f" ] ; then
+			SHARNESS="$f"
+		fi
+	done
+fi
+if [ -z "$SHARNESS" ] || [ ! -f "$SHARNESS" ] ; then
+	echo "sharness.sh not found" >&2
+	exit 1
+fi
+
+. "$SHARNESS"
 
 test_set_prereq PYTHON
 
