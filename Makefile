@@ -14,7 +14,7 @@ build:
 		PYTHON=python2 ; \
 	elif python -c 'import mercurial' 2> /dev/null ; then \
 		PYTHON=python ; \
-	else ; \
+	else \
 		echo 'Python with Mercurial not available' >&2 ; \
 		exit 1 ; \
 	fi ; \
