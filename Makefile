@@ -14,6 +14,9 @@ build:
 		PYTHON=python2 ; \
 	elif python -c 'import mercurial' 2> /dev/null ; then \
 		PYTHON=python ; \
+	else ; \
+		echo 'Python with Mercurial not available' >&2 ; \
+		exit 1 ; \
 	fi ; \
 	mkdir -p bin ; \
 	for s in git-remote-hg git-hg-helper ; do \
