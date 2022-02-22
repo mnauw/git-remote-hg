@@ -15,9 +15,6 @@ build:
 	elif python -c 'import mercurial' 2> /dev/null ; then \
 		PYTHON=python ; \
 	fi ; \
-	if [ -n "$$PYTHON" ] ; then \
-		PYTHON=python ; \
-	fi ; \
 	mkdir -p bin ; \
 	for s in git-remote-hg git-hg-helper ; do \
 		printf "%s\n" "#!/usr/bin/env $$PYTHON" > "bin/$$s" ; \
