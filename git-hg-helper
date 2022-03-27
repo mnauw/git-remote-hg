@@ -5,6 +5,11 @@
 
 from mercurial import hg, ui, commands, util
 from mercurial import context, subrepo
+try:
+    # hg >= 5.8
+    from mercurial.utils import urlutil
+except ImportError:
+    from mercurial import util as urlutil
 
 import re
 import sys
@@ -308,11 +313,11 @@ class GitHgRepo:
             if not kind in (b'hg', b'git'):
                 warn('skipping unsupported subrepo type %s' % kind)
                 continue
-            if not util.url(src).isabs():
+            if not urlutil.url(src).isabs():
                 parent = self.get_hg_repo_url(remote)
                 if not parent:
                     die(b'could not determine repo url of %s' % remote)
-                parent = util.url(parent)
+                parent = urlutil.url(parent)
                 parent.path = posixpath.join(parent.path or b'', src)
                 parent.path = posixpath.normpath(parent.path)
                 src = bytes(parent)
