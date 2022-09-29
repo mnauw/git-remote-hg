@@ -86,7 +86,7 @@ if sys.version_info[0] == 3:
         stdout = sys.stdout.buffer
         stderr = sys.stderr.buffer
         getcwd = os.getcwdb
-        getenv = os.getenvb if os.supports_bytes_environ else os.getenv
+        getenv = os.getenvb if os.supports_bytes_environ else lambda val, default: os.getenv(val.decode(), default.decode() if hasattr(default, 'decode') else default)
         urlparse = urllib.parse.urlparse
         urljoin = urllib.parse.urljoin
 else:
@@ -1849,6 +1849,7 @@ def main(args):
     marks = None
     is_tmp = False
     gitdir = compat.getenv(b'GIT_DIR', None)
+    gitdir = gitdir.encode() if hasattr(gitdir, 'encode') else gitdir # If the result is a string, get bytes instead.
 
     if len(args) < 3:
         die('Not enough arguments.')
